@@ -47,7 +47,7 @@ project_section:
 ########ADVANCE##############
 # Google-analytics
 google-analytics:
-  id: "89036250"
+  id: "UA-109150226-1"
 
 
 exclude:
