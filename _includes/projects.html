@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="user-details">
+    <h3> {{site.project_section.title}} </h3>
+  </div>
+  {% for project in site.project_section.projects %}
+    {% if project.leftAligned %}
+      <div class="row user-projects">
+        <div class="six columns images">
+          <img alt="{{project.image_name}}" src="{{project.featured_image}}" />
+        </div>
+        <div class="six columns contents">
+          <h5> {{ project.name }} </h5>
+          {% if project.featured_skills %}
+          <ul>
+            <li> {{project.featured_skills}}</li>
+          </ul>
+          {% endif %}
+          <p>{{ project.description }}</p>
+          {% if project.url %}
+          <a class="project-link" href={{project.url}} target="_blank">Check it out</a>
+          {% endif %}
+        </div>
+      </div>
+    {% else %}
+      <div class="row user-projects">
+        <div class="six columns">
+          <img alt="{{project.image_name}}"  src="{{project.featured_image}}"  />
+        </div>
+        <div class="six columns">
+          <h5> {{ project.name }} </h5>
+          {% if project.featured_skills %}
+          <ul>
+            <li> {{project.featured_skills}}</li>
+          </ul>
+          {% endif %}
+          <p>{{ project.description }}</p>
+          {% if project.url %}
+          <a class="project-link" href={{project.url}} target="_blank">Check it out</a>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+  </div>
+</div>
