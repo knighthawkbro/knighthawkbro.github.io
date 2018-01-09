@@ -50,9 +50,9 @@ project_section:
 google-analytics:
   id: "UA-109150226-1"
 
-
 exclude:
   - 'package.json'
   - 'src'
   - 'node_modules'
   - '.DS_Store'
+  - 'bower_components'
