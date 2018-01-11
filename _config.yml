@@ -56,3 +56,6 @@ exclude:
   - 'node_modules'
   - '.DS_Store'
   - 'bower_components'
+
+disqus:
+  shortname: bradywalsh
