@@ -3,7 +3,7 @@ layout: post
 title: The Birthday Boy
 custom_css: true
 custom_js: true
-#date: 2018-01-10 11:00:00 -5000
+date: 2018-01-12 11:00:00 -5000
 ---
 <blockquote>
     <q>
@@ -20,10 +20,10 @@ custom_js: true
 <ul>
     <li>Continuing to complete my Appeals database App at work</li>
     <li>Complete the subsite of this blog</li>
-    <li>Snowball migration for a <a href="https://www.cms.gov/">CMS</a> boundary slip-up on my end</li>
+    <li>Snowball migration for a <a href="https://www.cms.gov/" target="_blank">CMS</a> boundary slip-up on my end</li>
     <li>And a lot of life in a short time</li>
 </ul>
-<h4>Appeals Database</h4>
+<h4>Appeals Database &amp; and my love for Go.</h4>
 <p>
     The appeals database has been a responsibility of mine ever since the DBA that
     created it dumped on my plate as he was getting more and more work. We were
@@ -32,8 +32,150 @@ custom_js: true
     learned a lot about access (probably more than I wanted to!).
 </p>
 <p>
-    
+    Every year we make a brand new iteration of the database for the new appeals
+    for the year. I eventually noticed that the DBA put in a very crappy authentication
+    system using VBA. It was so easy to figure out the passwords because whenever you
+    open the database you have full access to everything including the code used. By going
+    to database tools and opening the VB code, you can see the login module and some if 
+    statements that contained the usernames and passwords for all the users of the system.
+    I eventually removed that that <q><i>feature</i></q> and went with Access 2007 and beyond 
+    built-in database encryption.
 </p>
-<h4>Blog</h4>
-<h4>AWS Snowbal</h4>
+<p>
+    We were pinged in an audit because that encryption system no matter how secure still needed
+    to be a single password shared with a number of appeal's team members. Technically they said
+    we were sharing credentials, but what am I supposed to do? Around this time I also helped
+    set up an instance of 2012 SQL Server for some internal reporting. My next step was to integrate 
+    the appeal's backend access database into the new and better performing SQL Server. SQL Server 
+    allows for windows authentication integrations and permissions based on AD groups which made it
+    an ideal candidate for this audit finding. Unfortunately, trying to get Access to nicely interact
+    with this feature is like trying to do surgery on yourself.
+</p>
+<p>
+    After many, many months struggling to get the DSN working, and implementing a feature where I didn't
+    need a DSN and the VBA code could just connect and dynamically add a link table for me I finally
+    came to the conclusion that I wasn't having any fun. The project was stalled because working in 
+    Access was like pulling teeth. It wasn't until I started doing more and more web development, exploring
+    NodeJS, Rails, Laravel that I got my inspiration back. The project really didn't get full steam until
+    I learned Golang in the weeks before last Christmas. I can say I fell in love with its philosophy.
+</p>
+<p>
+    I delved into book after book, examples, and screencasts. I found out that the GitHub developers
+    program I have included in my student account gives a 3-month trial for PluralSight. I have already done
+    3 or 4 course all on Go. I like it because it has the familiarities of a language like C, but also
+    fantastically implements modern programming techniques you would find in Python or Ruby. My favorite
+    fact is that it has is there are elements of Object Oriented Programming (OOP) without all the hassle of forcing
+    OOP down the user's throat like you would find in Java or C&sharp;. 
+</p>
+<p>
+    Fast forward to the week of New Year, I have a functioning app that seems to be working in a relatively stable manor.
+    It is still very alpha and by no means implements all the features I want to have in this database that will
+    mirror the functionality of the current Appeals database. But for the first time in a long time I am actually
+    enjoying the programming I do. No longer is it a hassle to get stuck on something and spend so much time encountering
+    a problem finding a possible solution and having that solution kill the life force inside of me. I want to do mail-merge?
+    I don't want to force my clients to go and learn the awful task of connecting to a data source like SQL Server,
+    run queries, and get a dataset back they can use to merge into notices. Let's let the server do that work and avoid
+    Microsoft office all together. I found a nifty package that does that heavy lifting for me called Gofpdf which is a port
+    of the PHP version fpdf. Same exact docs, lots of examples, and even saw an article on 
+    <a href="https://blog.gopheracademy.com/advent-2017/building-medical-reports-in-go/" target="_blank">Gopher Academy</a> with a guy generating
+    medical reports in the same way I wanted to generate Appeal notices. I tackled the problem and was able to get a notice
+    to pull from the database super easy. I also found an easy to use package the performs LDAP queries for authentication
+    with Windows Active Directory. Found a really well-maintained SQL Server driver I was able to connect to a Linux SQL Server
+    2017 instance I am running in Docker. I can now really do Windows development natively in my MacBook.
+</p>
+<p>
+    This blog is turning out longer than I anticipated. Let's quickly go over the accomplishments of this week.
+    <ul>
+        <li>Added a quick and dirty search function to find Appeals by ID</li>
+        <li>Refactored some logic for interacting with Appeals into its own model, view, and controller files.</li>
+        <li>Added a Count function to appeals model to return a total appeal count.</li>
+        <li>Implement a flash warning on the login page to tell users when errors are found.</li>
+        <li>Added more structed data to the Appeal struct for individual appeals. It is becoming a little unrulely.</li>
+        <li>Move the notice generation from the home page to the individual appeal pages.</li>
+        <li>Removed some junk templating from the home page to make it sleaker.</li>
+        <li>Updated the home, notice, appeal, and search templates to use the new structure for the appeals data I pull from the database.</li>
+    </ul>
+</p>
+<br>
+<h4>Blog Site</h4>
+<p>
+    I already had a webpage created (<a href="http://bradywalsh.me" target="_blank">You can find it here</a>)
+    and wanted to use a separate page to host this blog site. The web page is using the static file webserver
+    called Jekyll which is recommended by GitHub pages when you want to make a website hosted by GitHub.
+    I have used it in the past with other websites I professionally made. Jekyll makes it easy to add a page to
+    a site that isn't on the default page, but the way it was constructed it was heavily influenced as a single
+    page app (<a href="https://en.wikipedia.org/wiki/Single-page_application" target="_blank">SPA</a>). I had to
+    go into the templates and remove a lot of the embedded code to easily switch from one template and the other.
+    The blog site and the main page are vastly different in comparison.
+</p>
+<p>
+    The problem is Jekyll doesn't let you make any root level layouts and just gives you one, the default
+    layout. I extracted all that embedded code from the default layout and using the conditionals &amp; variables provided
+    by Jekyll I was able to load separate CSS and JS for the main page and the blog pages. It took a lot of research
+    and stringed up a bunch of solution into what you are seeing now. Apparently, there is variable you can pass
+    from the branch templates called <code>custom_css</code>. I was able to use that feature to tell the default 
+    layout template to load a separate set of CSS/JS for any website that wanted to use Twitters <a href="https://getbootstrap.com/" target="_blank">BootStrap</a>.
+    See this example here:
+<pre>
+    <code>
+&#123;% if page.custom_css %&#125;
+    &#123;% include blog_head.html %&#125;
+&#123;% else %&#125;
+    &#123;% include head.html %&#125;
+&#123;% endif %&#125;
+    </code>
+</pre>
+<p>
+    That code would either load the blog header which includes its own description and CSS files if the
+    <code>custom_css: true</code> was set in the page's <a href="https://jekyllrb.com/docs/frontmatter/" target="_blank">Front Matter</a>.
+</p>
+<p>
+    Jekyll also has fantastic documentation for building out a blog site. The whole framework is blog-aware.
+    I just created the for loop to iterate over all my posts and display them on the blogs home page.
+    I built out the template from a bootstrap example for a blog site (<a href="https://getbootstrap.com/docs/4.0/examples/blog/" target="_blank">link here</a>).
+    and now this post should be published and you are reading it now. I think it has been a success.
+</p>
+<br>
+<h4>AWS Snowball</h4>
+<p>
+    Trying to expand the capabilities of our AWS instance, I tried whitelisting our elastic IPs against the Optum
+    daily data extract (DDE) process one of my co-workers use for getting fresh data into the SQL server for reporting.
+    While I had the ticket open we discovered AWS wasn't in the boundary we provided to CMS. Therefore, I have a lot
+    of work to make our AWS instance CMS compliant. This meant that all the work I had done so far needs to be removed
+    from AWS while this change request is implemented. I have already started moving the archived data my company
+    needs to keep to AWS for disaster recovery purposes. That 4 TB of data needed to be brought back on-prem.
+</p>
+<p>
+    This week I finally received the external drive I am going to use to house that data temporarily until CMS
+    approves us. I also finally received the order for the Snowball extract. I thought I purchased an hardware
+    encrypted drive but it wasn't even though the order said AES 256 Encryption, but whatever I wasn't too bummed.
+    I installed <a href="https://www.veracrypt.fr/en/Home.html" target="_blank">VeraCrypt</a> which is a TrueCrypt fork and still being maintained today. I installed a virtual
+    drive with 6 TB of space on it and then formatted it. That took a couple days using USB 3.0. I also moved my 
+    work desktop into the server room to connect to a gigabit connection so transfers between the snowball device
+    and the encrypted hard drive was as fast as it could possibly go. Took 2 days to copy the 4 TB of data stored
+    on the snowball. I sent it back this week so I don't incur any more costs.
+</p>
+<br>
 <h4>Life</h4>
+<p>
+    On top of workin 40 hours a week and attending school full time with a 16-credit work load. I spend most
+    of my remaining time with my new family. I have a very beautiful wife and we are expecting our little
+    girl at any moment. For the New Year, my wife celebrates New Year's more since she is an
+    Orthodox Russian, in light of the Year of the dog, I got her a Miniature Schnauzer and we named him Teddy.
+    It has been a hard week. I am in Boston for essentially 12 hours a day and dealing with a pregnant wife
+    and a new puppy is not easy remotely. But I have to admit I am holding in there and making it work. If I 
+    appear sleepy and distracted, please know that it is not on purpose.
+</p>
+<p>
+    Also, it is my birthday on Friday and probably spend most of it at work or at school. So, if you are reading it
+    then, Happy Birthday to me!
+</p>
+<br>
+<h3>Things for next week</h3>
+<ul>
+    <li>Understanding Go Object-Relational Mapping (<a href="http://jinzhu.me/gorm/" target="_blank">GORM</a>) and using it in the Appeals Database</li>
+    <li>redirect to a 404 page when an Appeal is not found. Or do some fancy warning message.</li>
+</ul>
+<br>
+<h4>P.S.</h4>
+<p>Sorry for the long post, but I really need to provide some context for the current work I am doing now.</p>
