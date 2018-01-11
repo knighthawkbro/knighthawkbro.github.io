@@ -47,10 +47,10 @@ project_section:
       description: >
         Started up a blog for my Software Engineering class. Will try to 
         post weekly during the semester.
-        featured_skills: HTML5, CSS3, JS, Technical Writing
-        featured_image: assets/img/blog.png
-        url: blog
-        leftAligned: true
+      featured_skills: HTML5, CSS3, JS, Technical Writing
+      featured_image: assets/img/blog.png
+      url: blog
+      leftAligned: true
 
 
 ########ADVANCE##############
