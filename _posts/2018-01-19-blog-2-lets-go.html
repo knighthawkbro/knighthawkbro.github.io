@@ -1,0 +1,156 @@
+---
+layout: post
+title: Blog 2 - Lets GO
+custom_css: true
+custom_js: true
+date: 2018-01-19 11:00:00 -5000
+---
+
+<blockquote>
+    <q>
+        A crisis is defined as a specific, unexpected, non-routine event or
+        series of events that creates high levels of uncertainty and a
+        significant or perceived threat to high priority goals.
+    </q>
+    <footer>
+        <cite>Matthew Wayne Seeger (<i>Communication and Organizational Crisis</i> 2004)</cite>
+    </footer>
+</blockquote>
+
+<h3>What I am doing this week</h3>
+<ul>
+    <li>Continuing to complete my Appeals database App at work (This will be ongoing until completion)</li>
+    <li>Worked on our requirements for the project.</li>
+    <li>Small AWS update</li>
+    <li>Data Structures</li>
+</ul>
+<br>
+<h4>Appeals Database</h4>
+<p>
+    After watching the Golang Object Relational Mapping (GORM) course on 
+    <a href="https://app.pluralsight.com/library/courses/gorm-go-object-relational-mapper">
+    PluralSight</a>, I started to work on an appeal import process. The course is from
+    2015 and doesn't have much of the new features GORM has now. One thing that scared me
+    was the instructor talked about how MySQL, PostgreSQL, and SQLite were the only
+    databases GORM supported. I quickly visited the GitHub <a href="https://github.com/jinzhu/gorm">repo</a>. GORM uses this concept
+    called Dialects that are basically an interface for whatever database driver that GORM
+    uses to do its relational mapping. Luckily for me, 2012 SQL Server and beyond is now
+    supported in GORM. This was a huge make or break for using this tool for my project.
+</p>
+<p>
+    GORM basically takes the carefully constructed Golang structs I create and creates a
+    relation model that is comparable inside the database of my choice. Everything has
+    the same syntax since that is taken care of in the dialects for each relational 
+    database management systems, or RDBMS for short. After the schema is built it should
+    be very simple to perform queries against my new database using the GORM API. GORM
+    supports its own syntax and also raw SQL statements in case I have a query that would
+    perform better with my SQL.
+</p>
+<p>
+    First step I took with the database was to take the existing tables used in the
+    appeals database and convert it to something GORM would understand. As I was
+    putting everything into one struct I noticed that this wasn't pretty to look at.
+    I wanted to take the unruly single table I was using for all of the appeals and
+    transform it into a 
+    <a href="https://www.essentialsql.com/get-ready-to-learn-sql-11-database-third-normal-form-explained-in-simple-english/">
+    3rd normal form</a> (3NF) database. Although this would mean more tables and more glue
+    to stick everything together for queries, it would also mean a more maintainable
+    model because data is organized better. 3Nf means better space utilization because in
+    a single table model you would have to null out a bunch of fields you are using.
+    In a multi-table model you only use what you need and if you have to null a bunch
+    of fields it would only be contained in that one sub-table. Although not a
+    requirement from the appeals unit at my work, it was definitely on my todo list
+    way back when I first picked up this project.
+</p>
+<p>
+    I am still playing around with GORM but creating that structure in Go and having it
+    map directly to database tables was a great first step for me.
+</p>
+
+<br>
+<h4>Group Project</h4>
+<p>
+    For both classes, we had a mandatory online meeting via slack and google docs to flesh
+    out the software requirements for this course. I think we did a good job working together
+    as a team. Everyone showed up on Tuesday in the Slack channel to give feedback to what
+    they imagined the requirements should look like. My contributions include:
+    <ul>
+        <li>Cover page, without names</li>
+        <li>Stakeholder matrix layout with suggestions for the first stakeholder</li>
+        <li>Stakeholder footer with an explanation of impact and influence</li>
+        <li>Listing out every functional with "The system shall..." (Got that one from a IEEE software standards document)</li>
+    </ul>
+</p>
+<p>
+    I feel like the actual functional requirements was lacking something. I mentioned it 
+    to the group, but I really didn't have a good answer to why it felt off. I was imagining
+    that each requirement would be broken down into actors and other useful information
+    a group of stakeholder would find useful if they needed to reference this document again.
+</p>
+<p>
+    Anyways I am happy with the turnout from the group and it all really felt like it was a group
+    effort.
+</p>
+
+<br>
+<h4>AWS Update</h4>
+<p>
+    Quick update with the project. I am moving some of the Archive server data to the newly 
+    encrypted hard drive because I have had a lot of failures with a specific bay on the 
+    SAS array. If another HDD was to fail I would have data loss that is not backed up anywhere.
+    It is critical to get that data off as soon as I can.
+</p>
+<p>
+    I have reached out to a contact at the enterprise offices of technology services and security
+    or EOTSS for short (formally MassIT and A.K.A. ITD for Massachusetts) and they generated the
+    security change control need to provision the AWS instance in our border. We are really making
+    progress.
+</p>
+
+<br>
+<h4>Data Structures</h4>
+<p>
+    Little side note: I asked the professor teaching the course if it was fine if I coded
+    the labs in Golang since that is what I am most comfortable using. Java is the bane of
+    my existence and really detest working for it. She was fine with submitting the labs in that
+    language. I even suggested I will document the code and even provide the compiled executable
+    with a SHA-256 hash and Virus Total scan link showing the Unix executable was clean. The only
+    thing is the exam has some coding programs in Java, so I cannot entire escape it.
+</p>
+<p>
+    I had to re-write a lot of the lab in Go and that has taken me longer than what I was expecting
+    but I accomplish it. I think re-writing the labs in more critical fashion is helping me grasp
+    the real concepts of the class. Everyone else just has to complete a few methods expanding an
+    already provided data structure class. I, on the other hand, am really breaking the data structure 
+    concepts down and translating that to a completely different language.
+</p>
+<p>
+    I am pretty excited for this class now.
+</p>
+
+<br>
+<h4>Other PluralSight Course</h4>
+<p>
+    I started to take another PluralSight course after I identified an area I feel is lacking
+    in my professional development toolkit, communication. Luckily, they have a path for technical
+    communication and thought that was a great place to start. The course I am running through now
+    is <a href="https://app.pluralsight.com/library/courses/crisis-communication-technology-colleagues">Crisis Communication and Technology: Communicating with Colleagues</a> 
+    and I have already picked up on some effective crisis communication strategies. The quote from
+    above is a quote I liked from the beginning of the course. I think I will try to complete this path.
+</p>
+
+<br>
+<h4>Next Week</h4>
+<ul>
+    <li>Finish appeal import job using GORM</li>
+    <li>Attach newly mapped appeal tables to existing webserver</li>
+    <li>Get AWS instance CMS approved</li>
+</ul>
+
+<br>
+<hr>
+<h4>Bibliography</h4>
+<p>
+    <br>Wenzel, K. (2014, July 8) <i>Database Third Normal Form Explained in Simple English</i> - Essential SQL Blog
+    <br>&emsp;&ensp;https://www.essentialsql.com/get-ready-to-learn-sql-11-database-third-normal-form-explained-in-simple-english/
+</p>
