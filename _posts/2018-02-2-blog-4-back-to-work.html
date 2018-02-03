@@ -1,0 +1,152 @@
+---
+layout: post
+title: Blog 4 - Back to Work
+custom_css: true
+custom_js: true
+#date: 2018-02-02 23:59:59 -5000
+---
+
+<blockquote>
+    <q>
+        My feeling is if you're the CEO of a company and you're dumb enough to
+        leave your login info on a Post-it note on your desk, while the people
+        that you f***ing ripped off are physically in your office, it's not a
+        hack. It's barely social engineering. It's more like natural selection. 
+    </q>
+    <footer>
+        <cite>Bertram Gilfoyle (<a href="https://www.youtube.com/watch?v=F6ySNAA_2Iw"><i>Silicon Valley</i> Season 2 Episode 7 - Adult Content</a>)</cite>
+    </footer>
+</blockquote>
+
+<h3>What I am doing this week</h3>
+<ul>
+    <li>Continuing to complete my Appeals database App at work (This will be ongoing until completion)</li>
+    <li>Worked on the features for the group project.</li>
+    <li>Reading <i>Why Software Sucks</i></li>
+</ul>
+<br>
+<h4>Appeals Database</h4>
+<p>
+    Finally, back at the office after a short hiatus. I think letting a week sink in after starting
+    the GORM project gave me the time to really digest what I learned. Kind of like when you write
+    a paper and let a few days pass so you can have fresh eyes to look over your work. I really
+    like I am grasping the concept of Object Relational Mapping. I basically finished up the extract, 
+    transform, load (ETL) work yesterday.
+</p>
+<p>
+    I basically exported the appeals MS Access database into a text file, separated by tabs. Then 
+    took the struct tables I created earlier before the baby and mapped each column to their
+    respective attribute in the struct. Even the polymorphic address table is working perfectly.
+    I have never even thought that polymorphism is possible in relational databases. Basically,
+    I have two types of addresses to store for each appeal, the appellant and their optional
+    representative. It uses a combination of two additional fields that I named resident ID and Type.
+    GORM takes care of the rest when I explicitly tell it that the Person's Address has a polymorphic
+    relationship with an address. The type lets me know if it is a representative or an appellant
+    and the ID that is stored is actually the ID of the person it is storing information about.
+    Super cool.
+</p>
+<p>
+    I reduced the number of columns I would need to have in the person and representative table 
+    by forcing them to store their information in the same table called addresses. GORM takes care of the
+    joining for me and as the web designer I am glad I do not have to think about complex SQL
+    statements in order to glue all this information together. I defined it once in the structs
+    and GORM takes care of the complexity. This is exactly what I was trying to solve when I began
+    adding some of the 80+ attributes to an appeal struct in December. I really need this code
+    to look and feel maintainable. 
+</p>
+<p>
+    The other thing that I accomplished with GORM is once the data was in a slice of appeals cases
+    I was able to iterate each item in the slice and save it to the Linux MSSQL database I have
+    been running as a development database. I even had benchmark tests run like when I run the 
+    seeddb function I create a begin time saved as a Unix timestamp and when the loading finishes
+    I calculate how long in minutes and seconds it took the function to run. Turns out to load
+    3,200 appeals and over 6,000 outreach notes it took one minute and fifty-one seconds.
+</p>
+<p>
+    The only minor issue I have with GORM is really not an issue at all. It is the lazy-loading
+    it does when I pull records from the database. It is really meant as a performance boost
+    because really, when are you really going to need all 80+ columns loaded into a single
+    data structure? I kind of wish there was an eager-loading flag I could turn on if I did
+    indeed need all that data injected to the appeal object. Because the only way to do that
+    is to call a function call <code>Preload("table_name")</code> and chain it on to the db object
+    you are currently using. It forces the programmer to have to know all the relationships
+    in order to get some meaningful data. You can't just say use this appeal object, but only 
+    return the slice of hearing dates for a particular appeal without having to know that those
+    hearing dates are tied to some action which in turn is tied to some appeal case. 
+</p>
+<br>
+<h4>Features &amp; <i>Why Software Sucks</i></h4>
+<p>
+    Even though the Doc was sick this week, we still managed to come together as a group online
+    and start fleshing out some of the features needed to fulfill some requirements. I was 
+    stuck on the security requirement my group put down as a functional requirement. It didn't
+    make a whole lot of sense because it was so vague. I remember spending an extraodinary amount
+    of time in the session arguing (in a civil manor) why all the other's suggestions suck.
+    This is the same day I finished chapter 3 of the book <i>Why Software Sucks</i> which completely
+    deals with security in applications.
+</p>
+<p>
+    My thought process is that the Doc mentioned briefly that he didn't want to over complicate
+    anything with a logon process with a username and password. I suggested that in order to make
+    sure that the volunteer responsible is the one input data we would have the volunteer also
+    input some information about them self on top of the numbers they were submitting. This could
+    be as simple as a last name or initials or first initial + last name or email address. Something
+    they would remember in a heartbeat because it belongs to them in some form or fashion. What I got
+    in response sounded exactly like the programmers David Platt was berating in his book. I got
+    responses like my suggestion is not unique enough. The volunteers need something along the lines
+    of WIT emails last name + first initial + some number (i.e. walshb8, hayesj2, coxt1 ...). My
+    response was just it wasn't user friendly enough and way too complicated for no added reason.
+    Like the code camp would have 8 sessions in total for the day, and worse case that would
+    mean 8 different volunteers counting attendance. The odds of two volunteers having the same
+    last name or even the same first initial would be very slim.
+</p>
+<p>
+    One other student suggested something that made me laugh and my wife thought I was crazy.
+    They said that we should create a unique IDs that cannot be easily guessed. I posed the
+    question, "Do you want to be the one who supports all the volunteers who forgot the id?" Then
+    I laughed to myself when he suggested that we would either give each volunteer a piece of 
+    paper with their ID on it or just email them. My response was that if we are giving the 
+    volunteers paper we might as well get them a pen so they can write the attendance down
+    and just submit it at the end physically. It would take zero code to implement and achieve
+    the same goal as spending an entire course developing an app that paper and pen could 
+    achieve faster and more securely.
+</p>
+<p>
+    The person got defensive and his counter was this is easy stuff to do. I thought I am
+    actually dealing with a one of those pesky programmers David talked about that thinks
+    his way is perfect because it solves all the cases in his head perfectly. Anyways,
+    the email thing brought up a good point. Email addresses are inherently unique and
+    I would suppose that most people who have any social media account know their email
+    like the back of their hand. The organizers would have a list of people who will be
+    volunteering and most likely the main form of communication will be email so why not
+    make all the volunteers submit their email before they submit their numbers and that
+    way everything is guaranteed to be unique and somewhat prevents anyone from submitting
+    garbage numbers.
+</p>
+<p>
+    Nope, that is a security hazard apparently. When I tried to challenge why that is the case
+    I didn't get an explanation back which goes to show you that this particular team member
+    was really disconnected from his users. Maybe he was afraid that having things tied to
+    email exposes it somehow to everyone? I don't know how it would unless you programmed the 
+    system to do that by default which is a silly idea in the first place. The more and more
+    I puzzle myself over this single requirement dilemma, the more it just makes me want to
+    create a Google Form that points to a single Google sheet document and collects all this
+    information for us. Again, zero effort from a programming perspective and it would accomplish
+    the goals for this project easily. Easiest 20 minutes of my life.
+</p>
+<p>
+    I wanted to briefly explain the quote a bit more. I remember going over the social engineering
+    section of the text and when he got to user writing passwords down on a sticky note I just 
+    had to include this brilliant quote from one of my all-time favorite television shows. They 
+    even had an episode where they had user test and give feedback on the application. The main
+    character ended up making a great app with the UI/UX in mind of a programmer and had zero
+    design choices to make the interface simpler to understand. They even through in a clippy
+    joke in the episode the reminds me of David's anger for the late Microsoft mascot.
+</p>
+<br>
+<h4>Next Week</h4>
+<ul>
+    <li>Attach newly mapped appeal tables to existing webserver</li>
+    <li>Finish book, write a report</li>
+</ul>
+<br>
