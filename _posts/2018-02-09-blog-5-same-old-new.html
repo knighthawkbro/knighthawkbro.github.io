@@ -1,0 +1,87 @@
+---
+layout: post
+title: Blog 5 - Same Old New
+custom_css: true
+custom_js: true
+date: 2018-02-11 23:59:59 -5000
+---
+
+<blockquote>
+    <q>
+        Those who have swords, and know how to use them, but keep them sheathed
+        will inherit the earth.
+    </q>
+    <footer>
+        <cite>
+            Jordan B. Peterson (<a href="https://youtu.be/6T7pUEZfgdI?t=3988">
+            <i>Joe Rogan Experience Podcast</i> Episode #1070</a>)
+        </cite>
+    </footer>
+</blockquote>
+
+<h3>What I am doing this week</h3>
+<ul>
+    <li>Continuing to complete my Appeals database App at work (This will be ongoing until completion)</li>
+    <li>Worked on the features for the group project.</li>
+</ul>
+<br>
+<h4>Appeals Database</h4>
+<p>
+    Made some progress in the Appeals database this week. First, I was asked by my 
+    boss's boss to write up a proposal. I actually hadn't in
+    the past and only really documented requirements. Luckily, my boss had at 
+    template he used before for other projects at previous jobs. I just filled
+    out the sections the best I could with the track changes set on. I submitted
+    that to my boss for review and waiting to hear what he would want to add.
+</p>
+<p>
+    I didn't let that stop me from making more changes to the database. I started
+    to refactor the GORM code to separate files so I could separate the structure
+    and the functionality. I also started a new file for the AVV import job. I 
+    found a library that extends the SSH Golang library and allows me to make
+    SFTP connection to an Optum server. Optum manages the online Appeals for
+    the connector. They store it in some database and then every night they 
+    extract the delta changes in the database and upload to their SFTP server for
+    my scripts to go fetch and upload to the appeals database.
+</p>
+<p>
+    Since the new appeals will have to be uploaded to a SQL server I decided
+    that I will rewrite the current process that uses WinSCP, batch script,
+    and a VB script. Way too many moving parts. Also, the script doesn't support
+    the case if the script failed to run one night and the next night there
+    are two delta files to download and upload. I need this process to be
+    all encompassing. 
+</p>
+<p>
+    I have already transformed csv files before so that part won't be too 
+    difficult. I started to build out the module that would connect to the
+    SFTP server and download the pipe delimited .dat files. First thing though
+    was I was hard coding way too many passwords into the process and decided
+    to see if there was an easy way to use a YAML Ain't Markup Language (YAML) 
+    file for configuration. That way if the password for the database or SFTP
+    server ever change you can just modify the text file YAML and not have to 
+    recompile the code.
+</p>
+<p>
+    With the configuration set I passed the password to the SFTP module and was
+    able to open a connection and traverse the folders and find all the files.
+    Of course, I was doing it during the day and there were no files to grab so
+    I could test. I will probably suspend the normal process so I can really
+    test out grabbing files via Golang.
+</p>
+<br>
+<h4>Software Engineering Group Features</h4>
+<p>
+    I think the project is moving slowly as we decide the features for the
+    previous requirements. We finally broke up the bunch into essentially
+    frontend, backend, and miscellaneous group. Backend is really handling
+    the database side of things. The frontend was split up into two groups.
+    One group is tackling the client side of things and the other group
+    will take on the admin portal.
+</p>
+<p>
+    I assumed that we had lab 4 and 5 due this week but my group members
+    mentioned that only lab 3 was due. Next lab we need to break down the
+    big features that might take longer than a week and create sub features
+    or task. I guess it is a sort of calm before the storm.
+</p>
