@@ -1,0 +1,108 @@
+---
+layout: post
+title: Blog 6 - Got No Time
+custom_css: true
+custom_js: true
+date: 2018-02-16 23:59:59 -5000
+---
+
+<h3>What I am doing this week</h3>
+<ul>
+    <li>Continuing to complete my Appeals database App at work (This will be
+        ongoing until completion)</li>
+    <li>Finishing group features, and working on ERD and Inputs/Outputs </li>
+</ul>
+<br>
+<h4>Appeals Database</h4>
+<p>
+    Now that I am taking two days off a week for my newborn, I have a little
+    less time to devote to this project. But the amount of work I put into this
+    app this week is far greater then some of the weeks before. First, I came
+    back to work and turned off the daily task that goes and fetches the Appeals
+    of the last day and uploads it to the Access database. I need to test my sftp
+    functions out. So while I waited a day for the extract, I decided it would be
+    A good time to do some R&amp;D.
+</p>
+<p>
+    I was reading the book needed for network security and remembered all about
+    two-factor authentication (2FA). With everything I started looking for a good 
+    Go library that can do 2FA. I tried out a few but nothing seemed to work as
+    well as <a href="https://github.com/sec51/twofactor">TwoFactor</a> from Sec51.
+    This library seems perfect. It supports <a href="https://tools.ietf.org/html/rfc4226">RFC4226</a>
+    for Hashed Message Authentication Code (HMAC) One Time Passwords and 
+    <a href="https://tools.ietf.org/html/rfc6238">RFC6238</a> for Time-based One Time
+    passwords. Even better it also supports up to 8 digits from the standard
+    6 digit passcodes and SHA2 with 256-bit and 512-bit hashes. SHA1 is deprecated
+    and google and some other researchers proved that a <a href="https://security.googleblog.com/2017/02/announcing-first-sha1-collision.html">collision attack</a>
+    has SHAttered SHA1.
+</p>
+<p>
+    I finished out a working module that would generate a secret key for a user.
+    Then it would generate the QR code png needed for the client to sign up a 
+    soft token phone app to my module. I tested the ability to save an encrypted
+    binary to a file which could easily be saved to a database BLOB or similar
+    datatype. And finally the 8 character code was working on two different iPhone
+    apps, Lastpass Authenticator and another app that was just named Authenticator.
+    So, I have a working 2FA module I could easily implement in the Appeal's
+    database.
+</p>
+<p>
+    I also created a new branch in the git repo for the appeal's database for the
+    GORM integration. I really wanted the ability if I couldn't get anything to work,
+    I could just easily switch back to the master branch and either start over again
+    or completely scrap the GORM idea. I wiped the other database that had the old 
+    test data loaded in. I have the old SQL statements that could rebuild that information
+    if needed. Then I ran my appeals import job with some minor tweaks. I needed to add the
+    Sessions database and some new columns in the appeal table and I am ready to go.
+</p>
+<p>
+    I tackled the sessions first because that is the first database interaction the
+    users will have. I needed to log all the session created against the database and
+    who logged in and at what time. I implemented the soft delete with the sessions
+    that way I could keep a log and still keep the same logic for checking old sessions
+    and delete expired sessions. I ran into a little snag with checking if sessions
+    were over 3600 seconds, but I was able to work around that snag. Once I was able
+    to successfully log in, I felt more confident that the full migration over to
+    GORM was going to work.
+</p>
+<p>
+    Then I worked on the other sections and made sure the view layer was using the new
+    and improved structures. Now that I am completely finished migrating the web server
+    over to the new database I can finally finish up some of the long waited features
+    like forms and notices. Using GORM really streamlines the whole process of writing
+    SQL code for database interactions. 
+</p>
+<br>
+<h4>Finishing up Group Features</h4>
+<p>
+    We had an interesting group meet on thursday. We decided that we were not going
+    to do any mobile apps because there was only one of us who had any experience
+    writing mobile apps. We knew what we could do, just no one was prepared to tackle
+    learning a whole new language or interacting with Xamarin. So we decided the
+    next best bet was to do something we all know, a website.
+</p>
+<p>
+    We had initially decided that there was going to be 4 groups, a database team, an
+    UI-client team, an UI-admin team, and a Admin miscellaneous group that could handle
+    anything else. We quickly realized that the UI-admin will be doing all the work
+    while the other groups basically twiddled their thumbs. I thought it would be a good
+    idea to break the groups up further as we just decided that we are going to do
+    a full web app. Now each UI team would have a frontend and a backend. That way
+    people could focus on the look and feel while others could work on the behind the
+    scenes work. I was initially thinking that there would be two front ends and one
+    backend but we ended up voting for two backends and two frontends. We also redistributed
+    the teams again. I think this breakup of teams will work because it allows us to really
+    focus on the features.
+</p>
+<p>
+    Now, that I am on the database team, I really think I will push Tim in the right
+    direction. He seems to think that he has everything figured out, and I am here
+    to double check his work. He assumed that everything was going to live in one 
+    table at first, but after some serious discussions the amount of tables when to
+    3 then 4 now it is up to 5 and is really looking like a legitimate database
+    structure. I started working on the inputs and outputs for the website. Basically,
+    there will be an admin and a client. The client will be able to input into certain
+    tables, but cannot see anything afterwards. The admin will have the feature to set up
+    client logins, sessions, rooms. and see the form data that is inserted into the database.
+    Anyways I think we are ahead of our project and we will get back to it next week.
+</p>
