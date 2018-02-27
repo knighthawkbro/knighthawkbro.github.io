@@ -57,7 +57,8 @@ project_section:
       description: >
         Started up a blog for my Software Engineering class. Will try to 
         post weekly during the semester. This is a chance to get my
-        creative juices flowing and 
+        creative juices flowing and show off what I am currently working
+        on.
       featured_skills: HTML5, CSS3, JS, Technical Writing
       featured_image: assets/img/blog.png
       url: blog
