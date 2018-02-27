@@ -13,7 +13,12 @@ user:
   github: knighthawkbro
   linkedin: brady-walsh-3a81593b
 
-description: TODO
+description: >
+  Brady Walsh is a self-motivated and organized professional with over 7 years' 
+  experience providing thorough and skillful technical support for a medium-scale 
+  agency. Creative problem solver with the ability to think outside the box and 
+  effectively resolve technical challenges. Uniquely able to learn new skills 
+  and quickly adapt to the ever-changing IT industry.
 
 # About you
 about:
@@ -30,7 +35,9 @@ project_section:
   projects:
     - name: Website for Joanna Shea O'Brien
       description: >
-        Small, single page website I created for my friend in 2017.
+        Small, single page website I created for my friend in 2017. Written
+        in HTML5, SASS, and Coffee Script. Hosted on GitHub pages with Jekyll
+        as the backend. My first professional website.
       featured_skills: HTML5, CSS3, and JS
       featured_image: "assets/img/jso.png"
       url: http://www.joannasheaobrien.com
@@ -38,7 +45,10 @@ project_section:
     - name: In The Cloud - Senior Project - BSCN Wentworth
       description: >
         Developed a Citrix solution in the cloud for outsourcing networking
-        infrastructure in AWS.
+        infrastructure in AWS. Built with $0 dollars for a budget. We were able
+        to get academic funding for AWS to build this project out. Seemless
+        integration into a client's environment via point-to-point VPN and
+        DNS.
       featured_skills: AWS, VPNs, pfSense
       featured_image: assets/img/inthecloud.jpg
       url: assets/media/seniorprojectpresentation.pdf
@@ -46,7 +56,8 @@ project_section:
     - name: My Blog
       description: >
         Started up a blog for my Software Engineering class. Will try to 
-        post weekly during the semester.
+        post weekly during the semester. This is a chance to get my
+        creative juices flowing and 
       featured_skills: HTML5, CSS3, JS, Technical Writing
       featured_image: assets/img/blog.png
       url: blog
