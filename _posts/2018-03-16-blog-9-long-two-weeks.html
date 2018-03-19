@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Blog 9 - TBD
+title: Blog 9 - Long two weeks without the Doc
 custom_css: true
 custom_js: true
 date: 2018-03-16 12:00:00 -5000
@@ -15,48 +15,48 @@ date: 2018-03-16 12:00:00 -5000
 <h4>Appeals Database</h4>
 <p>
     I spent most of my time starting to explore deployment methods. I have spent a great time
-    with Docker and wanted to containerize my appeals app so I can deploy anywhere that supports
+    with Docker and wanted to containerize my appeals application so I can deploy anywhere that supports
     containers. This can be in your own datacenter with an instance of Kubernetes or Docker Swarm
-    for orchestration. Or it can be in the cloud provider of your choosing, AWS/GAE/ACS. First I
+    for orchestration. Or it can be in the cloud provider of your choosing, AWS/GAE/ACS. First, I
     ran through a bunch of videos on Pluralsight getting me up to speed with using Docker in depth
     and Kubernetes. I learned that Docker for community has a edge edition that allows you to run
-    an instance of kubernetes instead of swarm on your laptop for development. 
+    an instance of Kubernetes instead of swarm on your laptop for development. 
 </p>
 <p>
-    Once the edge version was installed I quickly enabled the feature inside of the docker
-    preferences to swap between the orchestration methods. I was off and running my kubernetes
+    Once the edge version was installed I quickly enabled the feature inside of the Docker
+    preferences to swap between the orchestration methods. I was off and running my Kubernetes
     instance but realized that I couldn't get access to the dashboard like I could with Minikube.
-    Instead I found the dashboard github page which had some kubernetes YAML files to start up
+    Instead I found the dashboard GitHub page which had some Kubernetes YAML files to start up
     a node running the dashboard. It is as easy as downloading the file or pointing to the raw
-    GitHub dump of the text file and telling kubernetes to create. In minutes the daskboard is
+    GitHub dump of the text file and telling Kubernetes to create. In minutes the dashboard is
     up and running and with no programming used at all. Now I can really see what is running
     in my environment.
 </p>
 <p>
-    Utilizing a DockerFile to build my project I tell docker to take a linux instance with
-    Go already installed. This was provided by the official Go docker image on <a href="https://hub.docker.com/r/library/golang/">Docker Hub</a>.
+    Utilizing a DockerFile to build my project I tell Docker to take a Linux instance with
+    Go already installed. This was provided by the official Go Docker image on <a href="https://hub.docker.com/r/library/golang/">Docker Hub</a>.
     I then copy all my source code to the containers $GOPATH\src directory and as a development
     feature I instruct the container to build the app and run it when it starts. I think once 
     I get the application production ready I will instead just copy over the templates and binary
-    to the docker images that way the container doesn't have to build the app every single time
+    to the Docker images that way the container doesn't have to build the app every single time
     it is started.
 </p>
 <p>
-    Then I needed to make some config files for Kubernetes to understand. These are built a little
-    different than a dockerfile. The dockerfile is more imperative which explains step-by-step how
-    to build the container. In Kubernetes, we tell the engine what to do declaratively. Declaritive
-    means that you tell Kubernetes what you expect and Kubernetes handles all the busy work. This
+    Then I needed to make some configuration files for Kubernetes to understand. These are built a little
+    different than a Dockerfile. The Dockerfile is more imperative which explains step-by-step how
+    to build the container. In Kubernetes, we tell the engine what to do declaratively. Declarative
+    means that you tell Kubernetes what you expect, and Kubernetes handles all the busy work. This
     busy work includes all the networking, scaling up an app across nodes, creating services, exposing
     ports, handling all the IP addressing and DNS between apps. In a YAML file that was less than 50
     lines.
 </p>
 <p>
     I also had to update my appeal importer program to import into the MSSQL database I launched into
-    my Kubernetes instance. I made sure to expose a node port so I could access it from my laptop. Then
-    all I had to do is point my config file to localhost and the exposed MSSQL port and it could start
-    inserting rows right into the datbase. I ran into a bunch of issues where the appeals web server
-    nodes were starting up before the MSSQL databse. I didn't want to host my docker images in the
-    cloud, so in the kubernetes config I needed to tell it when I told which image to load to never
+    my Kubernetes instance. I made sure to expose a node port, so I could access it from my laptop. Then
+    all I had to do is point my configuration file to localhost and the exposed MSSQL port and it could start
+    inserting rows right into the database. I ran into a bunch of issues where the appeals web server
+    nodes were starting up before the MSSQL database. I didn't want to host my Docker images in the
+    cloud, so in the Kubernetes Config I needed to tell it when I told which image to load to never
     fetch it from the cloud which forced it to look at my computer only. Later I think I would just
     push my images to a private repository in the cloud like AWS or Google Cloud and point Kubernetes
     there.
