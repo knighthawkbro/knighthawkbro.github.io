@@ -1,0 +1,117 @@
+---
+layout: post
+title: Blog 9 - TBD
+custom_css: true
+custom_js: true
+date: 2018-03-16 12:00:00 -5000
+---
+
+<h3>What I am doing this week</h3>
+<ul>
+    <li>Continuing to complete my Appeals database App at work (This will be ongoing until completion)</li>
+    <li>Software Engineering Update</li>
+</ul>
+<br>
+<h4>Appeals Database</h4>
+<p>
+    I spent most of my time starting to explore deployment methods. I have spent a great time
+    with Docker and wanted to containerize my appeals app so I can deploy anywhere that supports
+    containers. This can be in your own datacenter with an instance of Kubernetes or Docker Swarm
+    for orchestration. Or it can be in the cloud provider of your choosing, AWS/GAE/ACS. First I
+    ran through a bunch of videos on Pluralsight getting me up to speed with using Docker in depth
+    and Kubernetes. I learned that Docker for community has a edge edition that allows you to run
+    an instance of kubernetes instead of swarm on your laptop for development. 
+</p>
+<p>
+    Once the edge version was installed I quickly enabled the feature inside of the docker
+    preferences to swap between the orchestration methods. I was off and running my kubernetes
+    instance but realized that I couldn't get access to the dashboard like I could with Minikube.
+    Instead I found the dashboard github page which had some kubernetes YAML files to start up
+    a node running the dashboard. It is as easy as downloading the file or pointing to the raw
+    GitHub dump of the text file and telling kubernetes to create. In minutes the daskboard is
+    up and running and with no programming used at all. Now I can really see what is running
+    in my environment.
+</p>
+<p>
+    Utilizing a DockerFile to build my project I tell docker to take a linux instance with
+    Go already installed. This was provided by the official Go docker image on <a href="https://hub.docker.com/r/library/golang/">Docker Hub</a>.
+    I then copy all my source code to the containers $GOPATH\src directory and as a development
+    feature I instruct the container to build the app and run it when it starts. I think once 
+    I get the application production ready I will instead just copy over the templates and binary
+    to the docker images that way the container doesn't have to build the app every single time
+    it is started.
+</p>
+<p>
+    Then I needed to make some config files for Kubernetes to understand. These are built a little
+    different than a dockerfile. The dockerfile is more imperative which explains step-by-step how
+    to build the container. In Kubernetes, we tell the engine what to do declaratively. Declaritive
+    means that you tell Kubernetes what you expect and Kubernetes handles all the busy work. This
+    busy work includes all the networking, scaling up an app across nodes, creating services, exposing
+    ports, handling all the IP addressing and DNS between apps. In a YAML file that was less than 50
+    lines.
+</p>
+<p>
+    I also had to update my appeal importer program to import into the MSSQL database I launched into
+    my Kubernetes instance. I made sure to expose a node port so I could access it from my laptop. Then
+    all I had to do is point my config file to localhost and the exposed MSSQL port and it could start
+    inserting rows right into the datbase. I ran into a bunch of issues where the appeals web server
+    nodes were starting up before the MSSQL databse. I didn't want to host my docker images in the
+    cloud, so in the kubernetes config I needed to tell it when I told which image to load to never
+    fetch it from the cloud which forced it to look at my computer only. Later I think I would just
+    push my images to a private repository in the cloud like AWS or Google Cloud and point Kubernetes
+    there.
+</p>
+<br>
+<h4>Software</h4>
+<p>
+   I checked with my group to see what was due for the week. Kind of confused with the deliveries, but
+   I found out it is just a book report. Powered through <i>Don't Make Me Think</i> and finished it in
+   3 days. Enjoyed it heavily and will try to get his other books and chew through them as well.
+</p>
+<br>
+<h4>Next Week</h4>
+<ul>
+    <li>Finish up some notices and forms</li>
+    <li>I think my group wants to finish the sub-features this week, so guess we will be coding</li>
+</ul>
+<br>
+<hr>
+<h4>Bibliography</h4>
+ 
+<p>
+    Poulton, N. (2017, May 22). Getting started with kubernetes [Video course]. Retrieved from 
+    <br>
+    &emsp;&ensp;<a href="https://www.pluralsight.com/courses/getting-started-kubernetes">https://www.pluralsight.com/courses/getting-started-kubernetes</a>
+</p>
+
+<p>
+    Poulton, N. (2015, December 22). Docker and containers: The big picture [Video course]. Retrieved from 
+    <br>
+    &emsp;&ensp;<a href="https://www.pluralsight.com/courses/docker-containers-big-picture">https://www.pluralsight.com/courses/docker-containers-big-picture</a>
+</p>
+
+<p>
+    Poulton, N. (2016, August 1). Getting started with docker [Video course]. Retrieved from 
+    <br>
+    &emsp;&ensp;<a href="https://www.pluralsight.com/courses/docker-getting-started">https://www.pluralsight.com/courses/docker-getting-started</a>
+</p>
+
+<p>
+    Poulton, N. (2018, January 4). Docker deep dive [Video course]. Retrieved from 
+    <br>
+    &emsp;&ensp;<a href="https://www.pluralsight.com/courses/docker-deep-dive-update">https://www.pluralsight.com/courses/docker-deep-dive-update</a>
+</p>
+
+<p>
+    Poulton, N. (2015, September 22). Integrating docker with devops automated workflows [Video course]. Retrieved from 
+    <br>
+    &emsp;&ensp;<a href="https://www.pluralsight.com/courses/integrating-docker-with-devops-automated-workflows">https://www.pluralsight.com/courses/integrating-docker-with-devops-automated-workflows</a>
+</p>
+
+<p>
+    Florek, S. (2018, February 13). Kubernetes dashboard [Code repository]. Retrieved from 
+    <br>
+    &emsp;&ensp;<a href="https://github.com/kubernetes/dashboard/releases/tag/v1.8.3">https://github.com/kubernetes/dashboard/releases/tag/v1.8.3</a>
+</p>
+
+<br>
