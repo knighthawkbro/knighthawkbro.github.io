@@ -1,0 +1,90 @@
+---
+layout: post
+title: Blog 11 - A First Attempt at Integration
+custom_css: true
+custom_js: true
+date: 2018-03-30 12:00:00 -5000
+---
+
+<h3>What I am doing this week</h3>
+<ul>
+    <li>Continuing to complete my Appeals database App at work (This will be ongoing until completion)</li>
+    <li>Software Engineering Update</li>
+    <li>Moviri</li>
+</ul>
+<br>
+<h3>Appeals</h3>
+<p>
+    More holds on any more development. Again I was working on finalizing and provisioning
+    everyone's workspaces. I first provisioned some instances to whom I thought would need
+    the access immediately. Later in a quick meet-up with my boss's boss, I found out he
+    wants all the same access mirrored from a list of AD groups. Well, after some investigating
+    I will have to create 40 new accounts in AWS directory services. I have been trying to
+    consolidate a good list as an excel document for each of the users, and their passwords.
+    I think I will develop an AD script to bulk upload them from CSV.
+</p>
+<p>
+    I also had to work on getting the data ready for the SQL instance. I had to move a previously
+    compressed data file for CHIA (Center for Health Information and Analysis) research. The
+    dataset was over 700 gigabytes and I managed to compress it down to 97 gigabytes and send it
+    off to AWS in around 12 hours using my work's internet connection. The other dataset I had to
+    move up to AWS was a SQL database backup from 3-25. I used the same tool created by Amazon to
+    push the data up and into Simple Storage Service (S3). The tool is written in python and called
+    AWS CLI. Once it is set up it makes my life a hell of a lot easier.
+</p>
+<p>
+    I also got a second dataset from CHIA that is over 1.1 terabytes of data (1000 gigabytes). The
+    encrypted drive they sent over is a pain in the ass to use. I think the problem is with windows
+    because whenever the drive is not being used, windows puts it into a standby state. The problem
+    is that this drive immediately locks when disconnected and this standby state is triggering that.
+    I have had the drive kill my copy commands at different intervals of time making this a harder
+    endeavor than I initially anticipated. Anyways I have until next Thursday to get this copied and
+    verified so I am not too worried.
+</p>
+<br>
+<h3>Software Engineering</h3>
+<p>
+    This week we focused heavily on deploying everyone's code to GitHub. For the database group, we
+    didn't have much to contribute. I decided to use my time and push database documentation and queries
+    for the other teams to reference and use. First I started by taking Tim's ERD and lab8 to build out
+    SQL files that could be used for both MySQL if our team used a standard LAMP/MAMP/WAMP server to host
+    their PHP files and I also wrote the same statements with compatibility with SQLite3 for easier 
+    development since you don't have to go through the hassle of creating database credentials. The SQL
+    statements even included some dummy data for the teams to use so their code wasn't just pointing to an
+    empty database. For even more easier access to a working database, I pushed a SQLite db to the database
+    folder that had the same schema and dummy data as the SQL statements. 
+</p>
+<p>
+    I also created a MarkDown file that documents our team, how the columns are set up, and the ERD and 
+    Input/Output diagram for easier reference. Other than that I create a new branch called documentation
+    which I used to put all the documents we have submitted to BlackBoard in one place as PDF files. Finally,
+    Tim was a bit flustered with all the placeholders and documentation that was pushed to the repo, so I decided
+    to make a production branch that would clean up the excess code and give Tim a compact version of our App so
+    he could upload it to the server. Overall, I had a busy week.
+</p>
+<br>
+<h3>Moviri</h3>
+<p>
+    I had a pretty cool interview with the guys at Moviri. Since the HR person was traveling for work, I got to be
+    interviewed with some of the guys who I would most likely be working with directly. I worked on a problem to
+    code a CLI tool to take in some comma separated files as inputs and do some bandwidth calculations to get some
+    sort of output. I did the code in Golang, and I am pretty sure I fudged up something syntactically. I don't think
+    I was being judged for syntax. I tried to be as clear as possible in my answers, but as the hour went on
+    I was feeling really tired. I sort of got choked up on the open-end networking question. I wasn't particularly
+    sure how they wanted the question answered and was confused when the technician mentioned calculations. All they
+    wanted was my method of troubleshooting an unknown problem by looking at a graph of points for what looked like
+    a web app which had a 20% cap for CPU utilization at no matter how many hundreds of thousands of transactions called
+    against the application. It took a bit of time to probe exactly what they wanted, but I answered with starting to
+    investigate the networking first if networking isn't a problem may be the application had a bottleneck in either
+    secondary memory (RAM) or tertiary memory (HDD, SAN, NAS...). My final answer was to attack the problem first through
+    the network, then investigate the memory storage schemes used, then finally if nothing was discovered, pick apart the
+    application. Hope they liked my answers and want a follow-up interview.
+</p>
+<hr>
+<h4>Bibliography</h4>
+<p>
+    AWS., AWS CLI v1.14.68, (2018, March 31). GitHub repository, 
+    <br>
+    &emsp;&ensp;<a href="https://github.com/aws/aws-cli">https://github.com/aws/aws-cli</a>
+</p>
+<br>
