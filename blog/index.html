@@ -11,7 +11,7 @@ custom_js: true
             <div class="blog-post">
                 <h2>Posts</h2>
                 <ul>
-                    {% for post in site.posts %}
+                    {% for post in paginator.posts %}
                     <li>
                         <span class="blog-post-meta">{{ post.date | date: "%b %-d, %Y"}}</span>
                         <h3>
@@ -21,6 +21,19 @@ custom_js: true
                     {% endfor %}
                 </ul> 
             </div><!-- /.blog-post -->
+            <div class="pagination">
+                {% if paginator.previous_page %}
+                    <a href="{{ paginator.previous_page_path }}" class="previous">Previous</a>
+                {% else %}
+                    <span class="previous">Previous</span>
+                {% endif %}
+                <span class="page_number">Page: {{ paginator.page }} of {{ paginator.total_pages }}</span>
+                {% if paginator.next_page %}
+                    <a href="{{ paginator.next_page_path }}" class="next">Next</a>
+                {% else %}
+                    <span class="next">Next</span>
+                {% endif %}
+            </div>
             {% endif %}
         </div><!-- /.blog-main -->
         {% include blog_sidebar.html %}

@@ -5,6 +5,12 @@
 # # url: "localhost:3000" # the base hostname & protocol for your site e.g. http://willianjusten.com.br
 
 # General Information
+paginate: 10
+paginate_path: "/blog/page:num"
+plugins:
+  - jekyll-paginate
+
+
 user:
   name: Brady Walsh
   title: IT Networking Professional
