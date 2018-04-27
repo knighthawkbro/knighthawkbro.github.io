@@ -3,7 +3,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>{{ site.user.name }} - Blog</title>
+  <title>
+    {% if page.layout == 'post' %}
+      {{ site.user.name }} | {{ page.title }}
+    {% else %}
+      {{ site.user.name }} | Blog
+    {% endif %}
+  </title>
   <meta name="description" content="{% if page.description %}{{ page.description | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
 
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
