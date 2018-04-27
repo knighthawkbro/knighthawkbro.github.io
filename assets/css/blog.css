@@ -204,6 +204,7 @@ ul.share-buttons{
 
 ul.share-buttons li{
   display: inline;
+  list-style-type: none;
 }
 
 ul.share-buttons .sr-only{
