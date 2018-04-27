@@ -148,7 +148,20 @@
     margin-bottom: 1.25rem;
     color: #999;
   }
-  
+  .blog-post ul {
+    list-style-type: none;
+  } 
+  .blog-post h3 {
+    margin-bottom: .1rem;
+  }
+  .blog-post a {
+    color: #333;
+    font-weight: bold;
+  }
+  .blog-post a:hover {
+    color: #337ab7;
+    text-decoration: none;
+  }
   
   /*
    * Footer
@@ -163,6 +176,13 @@
   }
   .blog-footer p:last-child {
     margin-bottom: 0;
+  }
+  .blog-footer a {
+    text-decoration: none;
+    color: #333;
+  }
+  .blog-footer a:hover {
+    color: #337ab7;
   }
 
 /* Custom CSS */
