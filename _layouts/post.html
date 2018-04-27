@@ -22,6 +22,10 @@ custom_js: true
     {{ content }}
   </div>
 
+  <div>
+    {% include social.html %}
+  </div>
+
   {% if site.disqus.shortname %}
     {% include disqus_comments.html %}
   {% endif %}
