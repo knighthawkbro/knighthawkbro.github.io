@@ -9,6 +9,9 @@ paginate: 6
 paginate_path: "/blog/page:num"
 plugins:
   - jekyll-paginate
+  - jekyll-sitemap
+
+# url: "http://bradywalsh.me"
 
 
 user:
