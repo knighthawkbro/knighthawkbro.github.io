@@ -198,6 +198,8 @@
 @media (max-width: 600px) {
   .blog-header {
     text-align: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0;
   }
   .blog-title {
     font-size: 3rem;
