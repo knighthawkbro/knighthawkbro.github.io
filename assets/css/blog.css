@@ -191,6 +191,18 @@
   color: inherit;
 }
 
+@media (max-width: 600px) {
+  .blog-header {
+    text-align: center;
+  }
+  .blog-title {
+    font-size: 3rem;
+  }
+  .blog-description {
+    font-size: 2rem;
+  }
+}
+
 .header:hover {
   text-decoration: none;
   color: inherit;
