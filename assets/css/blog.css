@@ -125,11 +125,17 @@
   
   
   /* Pagination */
-  .blog-pagination {
+  .pagination {
     margin-bottom: 4rem;
   }
-  .blog-pagination > .btn {
+  .pagination > a {
     border-radius: 2rem;
+    color: #333;
+    font-weight: bold;
+  }
+
+  .pagination > a:hover {
+    color: #333;
   }
   
   
@@ -206,6 +212,7 @@
 }
 
 .blog-sidebar a {
+  font-weight: bold;
   color: #333;
 }
 .blog-sidebar:hover a {
