@@ -208,6 +208,11 @@
   .blog-sidebar {
     text-align: center;
   }
+  .pagination {
+    margin-top: 0;
+    margin-left: 25%;
+    margin-bottom: 5%;
+  }
 }
 
 .blog-sidebar a {
