@@ -178,11 +178,10 @@
     margin-bottom: 0;
   }
   .blog-footer a {
-    text-decoration: none;
     color: #333;
   }
   .blog-footer a:hover {
-    color: #337ab7;
+    color: #333;
   }
 
 /* Custom CSS */
@@ -204,6 +203,13 @@
   .blog-sidebar {
     text-align: center;
   }
+}
+
+.blog-sidebar a {
+  color: #333;
+}
+.blog-sidebar:hover a {
+  color: #333;
 }
 
 .header:hover {
