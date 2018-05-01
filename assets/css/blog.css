@@ -201,6 +201,9 @@
   .blog-description {
     font-size: 2rem;
   }
+  .blog-sidebar {
+    text-align: center;
+  }
 }
 
 .header:hover {
