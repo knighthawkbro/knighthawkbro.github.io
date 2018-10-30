@@ -1,0 +1,178 @@
+---
+layout: post
+title: Long Time, No Talk
+custom_css: true
+custom_js: true
+date: 2018-10-30 17:00:00 -5000
+---
+<h3>Long Time, No Talk</h3>
+<h4>Moviri, Inc.</h4>
+<p>
+    Little update since I have gone dark for a considerable 
+    amount of time. Starting work at Moviri was like diving 
+    straight into the deep end. The Moviri team has a 
+    startup culture which means that everything is hand on 
+    decks. We have a group of less than 10 taking on many 
+    projects at once. So far, I have seen to completion 
+    three very different projects. Over the course the past 
+    few months I have learned a lot. 
+</p>
+<p>
+    I have spent a considerable amount of time learning how 
+    data is consumed within the TSCO Application and learned 
+    a lot of Java fixing bugs in the ETL code. Right now, I 
+    feel like I finally have a grip on the general flow of 
+    the day to day work that I can finally sit down and 
+    write a blog again. I still have a lot more to learn. 
+    Documentation and presenting is still on my weak side. 
+    I need to look out for some of the small details I tend 
+    to gloss over since I am moving so fast. I cannot rely 
+    on the software to carry me, the customers have already 
+    bought the software from BMC, they come to us for our 
+    expertise and what “We” bring to the table.
+<p>
+    Hopefully, I can start up this blog in a regular 
+    interval to document the cool things I am learning.
+</p>
+<h4>Resteasy JAX-RS 2.0+ Client with Basic Auth & Accepting All SSL Certificates</h4>
+<p>
+    The real reason for this blog post is to go over some 
+    code I wrote to initialize a Resteasy client. There is 
+    tons of posts and documentation on the subject, but I 
+    was unable to find anything specific to my particular 
+    issue.
+</p>
+<p>
+    <b><u>My Problem:</u></b> ETL code was written a couple 
+    years ago. Most of the client initialization code used 
+    is now deprecated. ETL was moved to a newer system and 
+    code is failing with the latest libraries.
+</p>
+<p>
+    <b><u>My Approach:</u></b> Understand the goals of the 
+    initClient() function. Figure out what part of the code 
+    works and what I need to gut. Most important, keep this 
+    code more simple then when I started.
+</p>
+<p>
+    <b><u>My Solution:</u></b> After googling the initial 
+    errors and really having a hard time understanding the 
+    state of the code. I started the statements in reverse 
+    and worked my way back. Basically, the client’s using 
+    a monitoring solution that has a queriable API I can 
+    create a connection to. As the name of the function 
+    implies, it initializes this interface for a Resteasy 
+    client. The interface is annotated and design to run 
+    some functions against different URIs and get specific 
+    parameters using this reverse proxy client. This is a 
+    very object-oriented approach. Besides just feeding a 
+    regular client to this proxy object client there are a 
+    few conditions to take care of.
+</p>
+<ol>
+    <li>
+        HTTPS is used to secure communications between the 
+        application server and the monitoring tool. I will 
+        need to use a secure protocol and have a strategy 
+        to accept the signed certificate.
+    </li>
+    <li>
+        Basic Authentication headers are used with a username 
+        and password.
+    </li>
+    <li>
+        Make sure that the client uses the Resteasy interface 
+        to query different parts of the monitoring solution 
+        in an object-oriented way.
+    </li>
+</ol>
+<p>
+    I was able to find some information about the about the 
+    proxy framework straight from the 
+    <a href="http://docs.jboss.org/resteasy/docs/3.6.1.Final/userguide/html/RESTEasy_Client_Framework.html#proxies">JBoss documentation</a> 
+    for Resteasy which looks exactly like the way the rest 
+    of the ETL works. The foundation is set, I need to 
+    establish a client, point it to a target, and feed it 
+    through this proxy. To feed the interface to the target, 
+    you would run this:
+    <br>
+    <code>
+            Client = Target.proxy(interface.class);
+    </code>
+</p>
+<p>
+    Basic Authentication can be accomplished relatively easy 
+    using the ResteasyWebTarget object and registering a 
+    BasicAuthentication object which is actually apart of the
+    <a href="https://stackoverflow.com/a/35418136" target="_blank">Resteasy library</a>
+    . This takes care of securely 
+    hashing the username and password in the header to send 
+    it over for authentication. This can be done easily with 
+    this line here:
+    <br>
+    <code>
+        Target.register(new BasicAuthentication(username, password));
+    </code>
+</p>
+<p>
+    Testing the client so far reveals one more issue. The 
+    client doesn’t know how to accept the certificate for 
+    the API. I knew what I needed to do, but unfortunately, 
+    I am so unfamiliar with the Resteasy library I have no 
+    idea what to do. Finally, after a few hours of trial and 
+    error, I skimmed over the existing code once more and 
+    found a section that creates a TrustStrategy object that 
+    was used previously to accept all certificates. This is 
+    not the best solution to run on production servers since 
+    if anyone can highjack that domain, I would securely 
+    communicate with a malicious entity. I decided to keep 
+    the trust all certificates because the monitoring 
+    solution should not be exposed to the public and it was 
+    used previously. Maybe at a later date, I would 
+    implement the use of TrustStores that will store the 
+    certificates for a more secure implementation, but I 
+    digress. Since this little snippet worked before and was 
+    not deprecated, I kept it. I quickly found online a
+    <a href="https://stackoverflow.com/a/19519566" target="_blank">solution</a>
+    that uses an SSL context builder I can load this 
+    TrustStrategy object and attach it to the client when I 
+    am building it. Here is the final code:
+</p>
+<pre>
+<code>
+private void initClient() throws KeyStoreException, KeyManagementException, NoSuchAlgorithmException {
+    TrustStrategy acceptAll = new TrustStrategy() {
+        public boolean isTrusted(java.security.cert.X509Certificate[] arg0, String arg1) throws java.security.cert.CertificateException {
+            return true;
+        }
+    };
+    SSLContextBuilder sslBuilder = new SSLContextBuilder();
+    sslBuilder.loadTrustMaterial(acceptAll);
+    Client c = ResteasyClientBuilder.newBuilder().sslContext(sslBuilder.build()).build();
+    
+    ResteasyWebTarget target = (ResteasyWebTarget) c.target(https:// + host + “:” + port);
+    target.register(new BasicAuthentication(username, password);
+    client = target.proxy(Interface.class);
+}    
+</code>
+</pre>
+<p>
+    Can’t get much simpler than this. You have the 
+    “acceptAll” TrustStrategy that is fed into an SSL 
+    Context Builder which is fed into the client using the 
+    Resteasy Client Builder object. From there I need to 
+    point the client to a base target. I then add basic
+    authentication headers to the target and feed that 
+    object through a proxy I simply named interface for 
+    clarity which follows the Resteasy proxy framework and 
+    everything started working again as it did before 
+    integrating the ETL with the new libraries. This code 
+    now even works with the 10.7 version of the ETL too. The
+    previous code used a ton of hacks and shortcuts that 
+    didn’t really seem to make the code any easier to 
+    understand or troubleshoot. I am confident that this 
+    little snippet will help anyone else who has to maintain 
+    this code and understand without scratching their heads 
+    for two days as I did.
+</p>
+<br>
