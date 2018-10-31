@@ -142,24 +142,7 @@ Target.register(new BasicAuthentication(username, password));
     TrustStrategy object and attach it to the client when I 
     am building it. Here is the final code:
 </p>
-<pre>
-<code>
-private void initClient() throws KeyStoreException, KeyManagementException, NoSuchAlgorithmException {
-    TrustStrategy acceptAll = new TrustStrategy() {
-        public boolean isTrusted(java.security.cert.X509Certificate[] arg0, String arg1) throws java.security.cert.CertificateException {
-            return true;
-        }
-    };
-    SSLContextBuilder sslBuilder = new SSLContextBuilder();
-    sslBuilder.loadTrustMaterial(acceptAll);
-    Client c = ResteasyClientBuilder.newBuilder().sslContext(sslBuilder.build()).build();
-    
-    ResteasyWebTarget target = (ResteasyWebTarget) c.target(https:// + host + “:” + port);
-    target.register(new BasicAuthentication(username, password);
-    client = target.proxy(Interface.class);
-}    
-</code>
-</pre>
+<script src="https://gist.github.com/knighthawkbro/8033b1fb97a281cec748faa4cc731e03.js"></script>
 <p>
     Can’t get much simpler than this. You have the 
     “acceptAll” TrustStrategy that is fed into an SSL 
