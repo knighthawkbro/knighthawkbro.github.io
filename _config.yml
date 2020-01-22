@@ -23,8 +23,8 @@ user:
   linkedin: bradywalsh92
 
 description: >
-  Brady Walsh is a self-motivated and organized professional with 8 years of 
-  experience providing thorough and skillful technical support for a medium-to-large-scale 
+  Brady Walsh is a self-motivated and organized professional with 9 years of 
+  experience providing thorough and skillful technical support for a small-to-large-scale 
   companies. Creative problem solver with the ability to think outside the box and 
   effectively resolve technical challenges. Uniquely able to learn new skills 
   and quickly adapt to the ever-changing IT industry.
@@ -33,10 +33,10 @@ description: >
 about:
   title: About me
   description: >
-    I am an IT networking professional with over 8 years of experience. I graduated from
+    I am an IT networking professional with over 9 years of experience. I graduated from
     Wentworth Institute of Technology with a degree focusing on Network Administration. I
-    enjoy programming, playing video games, traveling, and spending time with my
-    family.
+    currently offering IT consulting services. I enjoy programming, playing video games, 
+    traveling, and spending time with my family.
 
 # Your projects
 project_section:
@@ -46,16 +46,15 @@ project_section:
       description: >
         Small, single page website I created for my friend in 2017. Written
         in HTML5, SASS, and Coffee Script. Hosted on GitHub pages with Jekyll
-        as the backend. My first professional website.
+        as the frontend.
       featured_skills: HTML5, CSS3, and JS
       featured_image: "assets/img/jso.png"
-      url: http://www.joannasheaobrien.com
+      url: https://www.joannasheaobrien.com
       leftAligned: true
     - name: In The Cloud - Senior Project - BSCN Wentworth
       description: >
         Developed a Citrix solution in the cloud for outsourcing networking
-        infrastructure in AWS. Built with $0 dollars for a budget. We were able
-        to get academic funding for AWS to build this project out. Seemless
+        infrastructure in AWS. Built with $0 dollars for a budget. Seemless
         integration into a client's environment via point-to-point VPN and
         DNS.
       featured_skills: AWS, VPNs, pfSense
@@ -64,15 +63,15 @@ project_section:
       leftAligned: false
     - name: My Blog
       description: >
-        Started up a blog for my Software Engineering class. Will try to 
-        post weekly during the semester. This is a chance to get my
-        creative juices flowing and show off what I am currently working
-        on.
+        Started up a blog for my Software Engineering class. Blog post come
+        whenever I feel like writing. Mostly aimed at life, work, and 
+        technical interests.
       featured_skills: HTML5, CSS3, JS, Technical Writing
       featured_image: assets/img/blog.png
       url: blog
       leftAligned: true
 
+# TODO: Might be a good idea to get Client testimonials
 
 ########ADVANCE##############
 # Google-analytics
